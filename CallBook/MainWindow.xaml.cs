@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CallBook.Classes;
+using SQLite;
 
 namespace CallBook
 {
@@ -23,12 +25,29 @@ namespace CallBook
         public MainWindow()
         {
             InitializeComponent();
+
+            ReadDatabase();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             NewContactWindow newContactWindow= new NewContactWindow();
             newContactWindow.ShowDialog();
+            ReadDatabase();
+        }
+
+        void ReadDatabase()
+        {
+            List<Contact> contacts = new List<Contact>();
+            using(SQLiteConnection conn = new SQLiteConnection(App.databasePath))
+            {
+                conn.CreateTable<Contact>();
+                contacts = conn.Table<Contact>().ToList();
+            }
+            if(contacts != null)
+            {
+                contactListView.ItemsSource = contacts;
+            }
         }
     }
 }

@@ -13,5 +13,8 @@ namespace CallBook
     /// </summary>
     public partial class App : Application
     {
+       static string databaseName = "Contact.db";
+       static string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+       public static string databasePath = System.IO.Path.Combine(folderPath, databaseName);
     }
 }
