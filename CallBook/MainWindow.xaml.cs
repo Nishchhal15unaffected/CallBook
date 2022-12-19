@@ -22,6 +22,7 @@ namespace CallBook
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<Contact> contacts = new List<Contact>();
         public MainWindow()
         {
             InitializeComponent();
@@ -38,7 +39,6 @@ namespace CallBook
 
         void ReadDatabase()
         {
-            List<Contact> contacts = new List<Contact>();
             using(SQLiteConnection conn = new SQLiteConnection(App.databasePath))
             {
                 conn.CreateTable<Contact>();
@@ -48,6 +48,12 @@ namespace CallBook
             {
                 contactListView.ItemsSource = contacts;
             }
+        }
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox searchTextBox = sender as TextBox;
+            var filterList = contacts.Where(c => c.Name.ToLower().Contains(searchTextBox.Text.ToLower())).ToList();
+            contactListView.ItemsSource = filterList;
         }
     }
 }

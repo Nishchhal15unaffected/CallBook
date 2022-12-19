@@ -9,8 +9,11 @@
     <StackPanel>
         <Button Content="New Contact"
                 Click="Button_Click" />
+        <TextBox Margin="0,5,0,5" 
+                 TextChanged="TextBox_TextChanged"/>
         <ListView x:Name="contactListView"
-                  Margin="0,5,0,0" >
+                  Margin="0,5,0,0"
+                  Height="280">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
