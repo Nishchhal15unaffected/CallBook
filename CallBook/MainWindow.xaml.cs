@@ -55,16 +55,5 @@ namespace CallBook
             var filterList = contacts.Where(c => c.Name.ToLower().Contains(searchTextBox.Text.ToLower())).ToList();
             contactListView.ItemsSource = filterList;
         }
-
-        private void contactListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Contact selectedContect = contactListView.SelectedItem as Contact;
-            if(selectedContect != null)
-            {
-                ContactDetailWindow contactDetailWindow = new ContactDetailWindow(selectedContect);
-                contactDetailWindow.ShowDialog();
-                ReadDatabase();
-            }
-        }
     }
 }
